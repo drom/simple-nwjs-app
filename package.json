@@ -1,0 +1,22 @@
+{
+  "name": "simple-nwjs13-app",
+  "version": "0.0.1",
+  "description": "nwjs",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "eslint **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drom/simple-nwjs13-app.git"
+  },
+  "keywords": [
+    "nwjs"
+  ],
+  "author": "Aliaksei Chapyzhenka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drom/simple-nwjs13-app/issues"
+  },
+  "homepage": "https://github.com/drom/simple-nwjs13-app#readme"
+}
