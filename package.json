@@ -1,10 +1,10 @@
 {
   "name": "simple-nwjs13-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "nwjs",
   "main": "lib/index.js",
   "scripts": {
-    "test": "eslint **/*.js"
+    "test": "eslint **/*.js && ./build.sh"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/drom/simple-nwjs13-app/issues"
   },
-  "homepage": "https://github.com/drom/simple-nwjs13-app#readme"
+  "homepage": "https://github.com/drom/simple-nwjs13-app#readme",
+  "devDependencies": {
+    "eslint": "^2.4.0"
+  }
 }
