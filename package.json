@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/drom/simple-nwjs13-app#readme",
   "devDependencies": {
-    "eslint": "^2.4.0"
+    "eslint": "^3.4.0"
   }
 }
