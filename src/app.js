@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    var fs = nw.require('fs');
+    var fs = require('fs');
 
     function ssvg () {
         var svg, ser;
@@ -38,6 +38,7 @@
     }
 
     setClickEvent('#BSVG', function () {
+        console.log(JSON.stringify(process.versions, null, 4));
         writeToFileEvent('#ISVG', ssvg);
     });
 
@@ -46,5 +47,7 @@
             return '<png></png>';
         });
     });
+
+    console.log(JSON.stringify(process.versions, null, 4));
 
 })();

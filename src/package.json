@@ -1,4 +1,5 @@
 {
     "name": "simple-app",
-    "main": "index.html"
+    "main": "index.html",
+    "chromium-args": "--enable-logging=stderr"
 }
