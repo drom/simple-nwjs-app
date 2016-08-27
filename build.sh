@@ -30,7 +30,7 @@ for P in linux-x64 linux-x86 win-x64 win-x86 osx-x64
 do
   mkdir cache/$N-$V-$P
   rm -rf cache/$N-$V-$P/*
-  cp -r cache/nwjs-$NWV-$P/* cache/$N-$V-$P/
+  cp -R cache/nwjs-$NWV-$P/* cache/$N-$V-$P
 done
 
 for P in linux-x64 linux-x86
@@ -55,3 +55,6 @@ do
   rm  cache/$N-$V-$P/nwjs.app/Contents/MacOS/nwjs
   pushd cache && zip -r ../build/$N-$V-$P.zip $N-$V-$P/* && popd
 done
+
+ls -l build
+ls -l cache
