@@ -56,5 +56,8 @@ do
   pushd cache && zip -r ../build/$N-$V-$P.zip $N-$V-$P/* && popd
 done
 
-ls -l build
+echo "cache area:"
 ls -l cache
+
+echo "build area:"
+ls -l build
