@@ -2,4 +2,4 @@ os:
   - linux
   - osx
 sudo: false
-script: ./build.sh
+script: wget -qO- https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh | bash
