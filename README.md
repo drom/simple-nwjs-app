@@ -4,6 +4,9 @@ The BASH script `build.sh` that builds simple JS APP `src/` with [nwjs](http://n
 
 ## Run Linux/MacOS
 
-  1. Put your NWJS APP into the `src/` folder.
-  2. Download & run script ```bash wget https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh | bash```
-  3. Grab builds from the `build/` folder.
+  * Put your NWJS APP into the `src/` folder.
+  * Download & run script
+```bash
+wget https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh | bash
+```
+  * Grab builds from the `build/` folder.
