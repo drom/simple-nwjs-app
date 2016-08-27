@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 URL="http://dl.nwjs.io/"
 NWV="v0.17.0-beta2"
 V="v1.0.0"
