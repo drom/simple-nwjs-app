@@ -1,3 +1,2 @@
-node_modules
-coverage
-nwjs-v0.13*
+cache
+build
