@@ -17,7 +17,7 @@ rm -rf cache/*/*
 for P in linux-x64 linux-x86
 do
   wget -nc $URL$NWV/nwjs-$NWV-$P.tar.gz -O cache/nwjs-$NWV-$P.tar.gz
-  tar -xvsf cache/nwjs-$NWV-$P.tar.gz -C cache
+  tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
 for P in win-x64 win-x86 osx-x64
