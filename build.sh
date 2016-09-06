@@ -1,6 +1,6 @@
 #!/bin/bash
 URL="http://dl.nwjs.io/"
-NWV="v0.17.0-beta2"
+NWV="v0.17.0"
 V="v1.0.0"
 N="simpleapp"
 
@@ -14,26 +14,26 @@ pushd src && zip -r ../build/$N-$V.nw * && popd
 mkdir cache
 rm -rf cache/*/*
 
-for P in linux-x64 linux-x86
+for P in linux-x64 linux-ia32
 do
   wget -nc $URL$NWV/nwjs-$NWV-$P.tar.gz -O cache/nwjs-$NWV-$P.tar.gz
   tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
-for P in win-x64 win-x86 osx-x64
+for P in win-x64 win-ia32 osx-x64
 do
   wget -nc $URL$NWV/nwjs-$NWV-$P.zip -O cache/nwjs-$NWV-$P.zip
   unzip -d cache/ -o cache/nwjs-$NWV-$P.zip
 done
 
-for P in linux-x64 linux-x86 win-x64 win-x86 osx-x64
+for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64
 do
   mkdir cache/$N-$V-$P
   rm -rf cache/$N-$V-$P/*
   cp -R cache/nwjs-$NWV-$P/* cache/$N-$V-$P
 done
 
-for P in linux-x64 linux-x86
+for P in linux-x64 linux-ia32
 do
   cat cache/$N-$V-$P/nw build/$N-$V.nw > cache/$N-$V-$P/$N
   chmod +x cache/$N-$V-$P/$N
@@ -41,7 +41,7 @@ do
   pushd cache && tar -cvzf ../build/$N-$V-$P.tar.gz $N-$V-$P/* && popd
 done
 
-for P in win-x64 win-x86
+for P in win-x64 win-ia32
 do
   cat cache/$N-$V-$P/nw.exe build/$N-$V.nw > cache/$N-$V-$P/$N.exe
   rm  cache/$N-$V-$P/nw.exe
