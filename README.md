@@ -9,6 +9,7 @@ The BASH script `build.sh` that builds simple JS APP `src/` with [nwjs](http://n
   * Put your NWJS APP into the `src/` folder.
   * Download & run script
 ```bash
-wget -qO- https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh | bash
+wget https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh -O build.sh
+bash build.sh --name myapp --version v1.2.3
 ```
   * Grab builds from the `build/` folder.
