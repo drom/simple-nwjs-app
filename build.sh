@@ -4,6 +4,26 @@ NWV="v0.18.0"
 V="v1.0.0"
 N="simpleapp"
 
+# command line arguments
+while [[ $# -gt 1 ]]
+do
+key="$1"
+
+case $key in
+  -n|--name)
+  N="$2"
+  shift
+  ;;
+  -v|--version)
+  V="$2"
+  shift
+  ;;
+  *)
+  ;;
+esac
+shift
+done
+
 mkdir build
 
 rm -rf build/*
