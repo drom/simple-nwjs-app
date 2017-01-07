@@ -1,6 +1,6 @@
 #!/bin/bash
 URL="http://dl.nwjs.io/"
-NWV="v0.19.4"
+NWV="v0.20.0-beta2"
 V="v1.0.0"
 N="simpleapp"
 
