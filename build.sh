@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 URL="http://dl.nwjs.io/"
 NWV="v0.19.5"
 V="v1.0.0"
@@ -24,56 +27,68 @@ esac
 shift
 done
 
-mkdir build
+urlget() {
+    if hash wget 2>/dev/null; then
+        wget -nc "$1" -O "$2"
+    elif hash curl 2>/dev/null; then
+        if ! [ -f "$2" ]; then
+          curl "$1" -o "$2"
+        fi
+    else
+        echo "wget or curl must be installed."
+        exit 1
+    fi
+}
+
+mkdir -p build
 
 rm -rf build/*
 
 # making app
-pushd src && zip -r ../build/$N-$V.nw * && popd
+pushd src && zip -r ../build/"$N"-$V.nw * && popd
 
-mkdir cache
+mkdir -p cache
 rm -rf cache/*/*
 
 for P in linux-x64 linux-ia32
 do
-  wget -nc $URL$NWV/nwjs-$NWV-$P.tar.gz -O cache/nwjs-$NWV-$P.tar.gz
+  urlget $URL$NWV/nwjs-$NWV-$P.tar.gz cache/nwjs-$NWV-$P.tar.gz
   tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
 for P in win-x64 win-ia32 osx-x64
 do
-  wget -nc $URL$NWV/nwjs-$NWV-$P.zip -O cache/nwjs-$NWV-$P.zip
+  urlget $URL$NWV/nwjs-$NWV-$P.zip cache/nwjs-$NWV-$P.zip
   unzip -d cache/ -o cache/nwjs-$NWV-$P.zip
 done
 
 for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64
 do
-  mkdir cache/$N-$V-$P
-  rm -rf cache/$N-$V-$P/*
-  cp -R cache/nwjs-$NWV-$P/* cache/$N-$V-$P
+  mkdir -p cache/"$N"-$V-$P
+  rm -rf cache/"$N"-$V-$P/*
+  cp -R cache/nwjs-$NWV-$P/* cache/"$N"-$V-$P
 done
 
 for P in linux-x64 linux-ia32
 do
-  cat cache/$N-$V-$P/nw build/$N-$V.nw > cache/$N-$V-$P/$N
-  chmod +x cache/$N-$V-$P/$N
-  rm  cache/$N-$V-$P/nw
-  pushd cache && tar -cvzf ../build/$N-$V-$P.tar.gz $N-$V-$P/* && popd
+  cat cache/"$N"-$V-$P/nw build/"$N"-$V.nw > cache/"$N"-$V-$P/"$N"
+  chmod +x cache/"$N"-$V-$P/"$N"
+  rm  cache/"$N"-$V-$P/nw
+  pushd cache && tar -cvzf ../build/"$N"-$V-$P.tar.gz "$N"-$V-$P/* && popd
 done
 
 for P in win-x64 win-ia32
 do
-  cat cache/$N-$V-$P/nw.exe build/$N-$V.nw > cache/$N-$V-$P/$N.exe
-  rm  cache/$N-$V-$P/nw.exe
-  pushd cache && zip -r ../build/$N-$V-$P.zip $N-$V-$P/* && popd
+  cat cache/"$N"-$V-$P/nw.exe build/"$N"-$V.nw > cache/"$N"-$V-$P/"$N".exe
+  rm  cache/"$N"-$V-$P/nw.exe
+  pushd cache && zip -r ../build/"$N"-$V-$P.zip "$N"-$V-$P/* && popd
 done
 
 for P in osx-x64
 do
-  cat cache/$N-$V-$P/nwjs.app/Contents/MacOS/nwjs \
-  build/$N-$V.nw > cache/$N-$V-$P/nwjs.app/Contents/MacOS/$N
-  rm  cache/$N-$V-$P/nwjs.app/Contents/MacOS/nwjs
-  pushd cache && zip -r ../build/$N-$V-$P.zip $N-$V-$P/* && popd
+  cp build/"$N"-$V.nw cache/"$N"-$V-$P/nwjs.app/Contents/Resources/app.nw
+  mv cache/"$N"-$V-$P/nwjs.app cache/"$N"-$V-$P/"$N".app
+  pushd cache && zip -r ../build/"$N"-$V-$P.zip "$N"-$V-$P/* && popd
 done
 
 echo "cache area:"
