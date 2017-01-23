@@ -28,15 +28,15 @@ shift
 done
 
 urlget() {
-    if hash wget 2>/dev/null; then
-        wget -nc "$1" -O "$2"
-    elif hash curl 2>/dev/null; then
-        if ! [ -f "$2" ]; then
-          curl "$1" -o "$2"
+    if ! [ -f "$2" ]; then
+        if hash wget 2>/dev/null; then
+            wget "$1" -O "$2"
+        elif hash curl 2>/dev/null; then
+            curl "$1" -o "$2"
+        else
+            echo "wget or curl must be installed."
+            exit 1
         fi
-    else
-        echo "wget or curl must be installed."
-        exit 1
     fi
 }
 
