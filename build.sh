@@ -3,7 +3,7 @@
 set -e
 
 URL="http://dl.nwjs.io/"
-NWV="v0.21.3"
+NWV="v0.22.0-beta1"
 V="v1.0.0"
 N="simpleapp"
 
