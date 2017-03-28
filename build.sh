@@ -2,10 +2,10 @@
 
 set -e
 
-URL="http://dl.nwjs.io/"
-NWV="v0.22.0-beta1"
+NWVERSION="v0.22.0-beta1"
 V="v1.0.0"
 N="simpleapp"
+PREFIX=""
 
 # command line arguments
 while [[ $# -gt 1 ]]
@@ -17,6 +17,14 @@ case $key in
   N="$2"
   shift
   ;;
+  -p|--prefix)
+  PREFIX="$2"
+  shift
+  ;;
+  -w|--nwversion)
+  NWVERSION="$2"
+  shift
+  ;;
   -v|--version)
   V="$2"
   shift
@@ -26,6 +34,9 @@ case $key in
 esac
 shift
 done
+
+URL="http://dl.nwjs.io/"$NWVERSION
+NWV=$PREFIX$NWVERSION
 
 urlget() {
     if ! [ -f "$2" ]; then
@@ -44,24 +55,26 @@ mkdir -p build
 
 rm -rf build/*
 
-# making app
+# make app
 pushd src && zip -r ../build/"$N"-$V.nw * && popd
 
 mkdir -p cache
 rm -rf cache/*/*
 
+# get and unpack NWJS packages
 for P in linux-x64 linux-ia32
 do
-  urlget $URL$NWV/nwjs-$NWV-$P.tar.gz cache/nwjs-$NWV-$P.tar.gz
+  urlget $URL/nwjs-$NWV-$P.tar.gz cache/nwjs-$NWV-$P.tar.gz
   tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
 for P in win-x64 win-ia32 osx-x64
 do
-  urlget $URL$NWV/nwjs-$NWV-$P.zip cache/nwjs-$NWV-$P.zip
+  urlget $URL/nwjs-$NWV-$P.zip cache/nwjs-$NWV-$P.zip
   unzip -d cache/ -o cache/nwjs-$NWV-$P.zip
 done
 
+# clean cache
 for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64
 do
   mkdir -p cache/"$N"-$V-$P
@@ -69,6 +82,7 @@ do
   cp -R cache/nwjs-$NWV-$P/* cache/"$N"-$V-$P
 done
 
+# pack APP packages
 for P in linux-x64 linux-ia32
 do
   cat cache/"$N"-$V-$P/nw build/"$N"-$V.nw > cache/"$N"-$V-$P/"$N"
