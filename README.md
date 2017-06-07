@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/drom/simple-nwjs-app.svg?branch=master)](https://travis-ci.org/drom/simple-nwjs-app)
 
-The BASH script `build.sh` that builds simple JS APP `src/` with [nwjs](http://nwjs.io) v0.22 for Linux/Mac/Windows desktops.
+The BASH script `build.sh` that builds simple JS APP `src/` with [nwjs](http://nwjs.io) v0.23 for Linux/Mac/Windows desktops.
 
 ## Run Linux/MacOS
 
