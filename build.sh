@@ -102,7 +102,7 @@ for P in osx-x64
 do
   cp build/"$N"-$V.nw cache/"$N"-$V-$P/nwjs.app/Contents/Resources/app.nw
   mv cache/"$N"-$V-$P/nwjs.app cache/"$N"-$V-$P/"$N".app
-  pushd cache && zip -r ../build/"$N"-$V-$P.zip "$N"-$V-$P/* && popd
+  pushd cache && zip -r --symlinks ../build/"$N"-$V-$P.zip "$N"-$V-$P/* && popd
 done
 
 echo "cache area:"
