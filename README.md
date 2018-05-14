@@ -32,7 +32,5 @@ NWJS version
 
 NWJS prefix
 
-  * sdk-symbol-
   * sdk-
-  * symbol-
   * ""
