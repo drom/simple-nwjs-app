@@ -13,3 +13,26 @@ wget https://raw.githubusercontent.com/drom/simple-nwjs-app/master/build.sh -O b
 bash build.sh --name myapp --version v1.2.3
 ```
   * Grab builds from the `build/` folder.
+
+## Options
+
+### -n, --name
+
+App name
+
+### -v, --version
+
+App version
+
+### -w, --nwversion
+
+NWJS version
+
+### -p, --prefix
+
+NWJS prefix
+
+  * sdk_symbol
+  * sdk
+  * symbol
+  * ""
