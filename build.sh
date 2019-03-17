@@ -2,7 +2,7 @@
 
 set -e
 
-NWVERSION="v0.36.4"
+NWVERSION="v0.37.0"
 V="v1.0.0"
 N="simpleapp"
 PREFIX=""
