@@ -2,7 +2,7 @@
 
 set -e
 
-NWVERSION="v0.71.1"
+NWVERSION="v0.95.0"
 V="v1.0.0"
 N="simpleapp"
 PREFIX=""
@@ -35,20 +35,20 @@ esac
 shift
 done
 
-URL="http://dl.nwjs.io/"$NWVERSION
+URL="https://dl.nwjs.io/"$NWVERSION
 NWV=$PREFIX$NWVERSION
 
 urlget() {
-    if ! [ -f "$2" ]; then
-        if hash wget 2>/dev/null; then
-            wget "$1" -O "$2"
-        elif hash curl 2>/dev/null; then
-            curl "$1" -o "$2"
-        else
-            echo "wget or curl must be installed."
-            exit 1
-        fi
+  if ! [ -f "$2" ]; then
+    if hash curl 2>/dev/null; then
+      curl "$1" -o "$2"
+    elif hash wget 2>/dev/null; then
+      wget "$1" -O "$2"
+    else
+      echo "wget or curl must be installed."
+      exit 1
     fi
+  fi
 }
 
 mkdir -p build
@@ -68,14 +68,14 @@ do
   tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
-for P in win-x64 win-ia32 osx-x64
+for P in win-x64 win-ia32 osx-x64 osx-arm64
 do
   urlget $URL/nwjs-$NWV-$P.zip cache/nwjs-$NWV-$P.zip
   unzip -d cache/ -o cache/nwjs-$NWV-$P.zip
 done
 
 # clean cache
-for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64
+for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64 osx-arm64
 do
   mkdir -p cache/"$N"-$V-$P
   rm -rf cache/"$N"-$V-$P/*
@@ -98,7 +98,7 @@ do
   pushd cache && zip -r ../build/"$N"-$V-$P.zip "$N"-$V-$P/* && popd
 done
 
-for P in osx-x64
+for P in osx-x64 osx-arm64
 do
   cp build/"$N"-$V.nw cache/"$N"-$V-$P/nwjs.app/Contents/Resources/app.nw
   mv cache/"$N"-$V-$P/nwjs.app cache/"$N"-$V-$P/"$N".app
