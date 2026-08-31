@@ -2,7 +2,7 @@
 
 set -e
 
-NWVERSION="v0.95.0"
+NWVERSION="v0.115.0"
 V="v1.0.0"
 N="simpleapp"
 PREFIX=""
@@ -41,7 +41,7 @@ NWV=$PREFIX$NWVERSION
 urlget() {
   if ! [ -f "$2" ]; then
     if hash curl 2>/dev/null; then
-      curl "$1" -o "$2"
+      curl -L "$1" -o "$2"
     elif hash wget 2>/dev/null; then
       wget "$1" -O "$2"
     else
@@ -62,20 +62,20 @@ mkdir -p cache
 rm -rf cache/*/*
 
 # get and unpack NWJS packages
-for P in linux-x64 linux-ia32
+for P in linux-x64
 do
   urlget $URL/nwjs-$NWV-$P.tar.gz cache/nwjs-$NWV-$P.tar.gz
   tar -xvf cache/nwjs-$NWV-$P.tar.gz -C cache
 done
 
-for P in win-x64 win-ia32 osx-x64 osx-arm64
+for P in win-x64 osx-x64 osx-arm64
 do
   urlget $URL/nwjs-$NWV-$P.zip cache/nwjs-$NWV-$P.zip
   unzip -d cache/ -o cache/nwjs-$NWV-$P.zip
 done
 
 # clean cache
-for P in linux-x64 linux-ia32 win-x64 win-ia32 osx-x64 osx-arm64
+for P in linux-x64 win-x64 osx-x64 osx-arm64
 do
   mkdir -p cache/"$N"-$V-$P
   rm -rf cache/"$N"-$V-$P/*
@@ -83,7 +83,7 @@ do
 done
 
 # pack APP packages
-for P in linux-x64 linux-ia32
+for P in linux-x64
 do
   cat cache/"$N"-$V-$P/nw build/"$N"-$V.nw > cache/"$N"-$V-$P/"$N"
   chmod +x cache/"$N"-$V-$P/"$N"
@@ -91,7 +91,7 @@ do
   pushd cache && tar -cvzf ../build/"$N"-$V-$P.tar.gz "$N"-$V-$P/* && popd
 done
 
-for P in win-x64 win-ia32
+for P in win-x64
 do
   cat cache/"$N"-$V-$P/nw.exe build/"$N"-$V.nw > cache/"$N"-$V-$P/"$N".exe
   rm  cache/"$N"-$V-$P/nw.exe
